@@ -4,32 +4,41 @@ import java.util.List;
 
 public class Series {
 
-   public List compare(Integer[] a) {
-
+    public List MAX(Integer[] a) {
         List c = new ArrayList();
+        int max = 0, sum = 0, i = 0;
+        List b = new ArrayList();
 
-            int max = 0, sum = 0, i = 0;
-           List b = new ArrayList();
+        while (i < a.length) {
+            sum += a[i];
+            b.add(a[i]);
+            if (sum < 0) {
+                sum = 0;
+                b.clear();
+            }
+            i++;
+            if (sum > max) {
+                c.clear();
+                c .addAll(b);
+                max = sum;
+            }
+        }
+//        System.out.println(max+" "+c);
+        return c;
 
-            while (i < a.length) {
-                sum += a[i];
-                b.add(String.valueOf(a[i]));
-                if (sum < 0) {
-                    sum = 0;
-                    b.clear();
-                }
-                i++;
-                if (sum > max) {
-                    max = sum;
-                    c = b;
+    }
+
+    public boolean compare(Integer[] a, Integer[] b) {
+        boolean flag = true;
+        List x = MAX(a);
+        if (x.size() == b.length) {
+            for (int i = 0; i < x.size(); i++) {
+                if (x.get(i) != b[i]) {
+                    flag = false;
+                    break;
                 }
             }
-       return c;
+        } else flag = false;
+        return flag;
     }
-//
-//    public static void main(String[] args) {
-//        Series series = new Series();
-//        int[] a = {1, 3, -1, -20, 5, -6, -8, 3, 4};
-//        series.compare(a);
-//    }
 }
